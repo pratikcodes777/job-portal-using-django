@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container-sm">
+    {% include 'messages.html' %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Job Title</label>
+        {% render_field form.title class="form-control" %}
+    </div>   
+    <div class="mb-3">
+        <label class="form-label">Location</label>
+        {% render_field form.location class="form-control" %}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Salary</label>
+        {% render_field form.salary class="form-control" %}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Job Requirements</label>
+        {% render_field form.requirements|attr:"rows:2" class="form-control" %}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Ideal candidate</label>
+        {% render_field form.ideal_candidate|attr:"rows:2" class="form-control" %}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Is available?</label>
+        {% render_field form.is_available class="form-check-input" %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+</div>
+
+
+{% endblock content %}

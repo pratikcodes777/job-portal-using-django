@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container-sm">
+    {% include 'messages.html' %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">First Name</label>
+        {% render_field form.first_name class="form-control" %}
+    </div>   
+    <div class="mb-3">
+        <label class="form-label">Last Name</label>
+        {% render_field form.surname class="form-control" %}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Location</label>
+        {% render_field form.location class="form-control" %}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Job Title</label>
+        {% render_field form.job_title class="form-control" %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container-sm">
+
+    <section>
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div container-fluid py-5>
+                <h2 class="display-5 fw-bold">{{ job.title }}</h1>
+                <p class="col-md-8 fs-5 mt-3">
+                    {{job.location}} | Remote | Rs. {{job.salary|intcomma}}
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <div>
+        <section>
+            <h5>Job Description</h5>
+            <p>
+                {{job.requirements}}
+            </p>
+        </section>
+    </div> <br>
+    
+    <div>
+        <section>
+            <h5>Ideal Candidate</h5>
+            <p>
+                {{job.ideal_candidate}}
+            </p>
+        </section>
+    </div> <br>
+
+    <div class="card border-info mb-3" style="max-width: 18rem;">
+        <div class="card-header">About Company</div>
+        <div class="card-body">
+          <h5 class="card-title">{{ job.company }}</h5>
+          <p class="card-text">Located on: {{ job.company.city }}</p>
+          <p class="card-text">Province: {{job.company.province}}</p>
+        </div>
+        <div class="card-footer">
+            <small class="text-body-secondary">Established on: {{job.company.est_date}}</small>
+          </div>
+      </div>
+    
+
+</div>
+
+{% endblock content %}

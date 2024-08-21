@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<section>
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div container-fluid py-5>
+            <h2 class="display-5 fw-bold">Welcome to Job Site</h1>
+            <p class="col-md-8 fs-5 mt-3">All available Jobs</p>
+        </div>
+    </div>
+</section>
+
+<div class="container-sm">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for job in jobs %}
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ job.title }}</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">Rs. {{ job.salary|intcomma }}</p>
+              <p class="card-text">Posted by: {{ job.company }}</p>
+              <a class="btn btn-primary btn-sm" href="{% url 'job-details' job.id %}">View Details</a>
+
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Created {{ job.timestamp|naturaltime }}</small>
+            </div>
+          </div>
+        </div>
+          {% endfor %}
+    </div>
+    
+</div>
+
+
+
+{% endblock content %}
