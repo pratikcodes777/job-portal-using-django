@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from work.models import Work
+from work.models import Work, ApplyJob
 
 # Create your views here.
 def home(request):
@@ -7,7 +7,7 @@ def home(request):
 
 
 def job_listing(request):
-    jobs = Work.objects.filter(is_available = True)
+    jobs = Work.objects.filter(is_available = True).order_by('-timestamp')
     context = {
         'jobs': jobs
     }
@@ -15,8 +15,14 @@ def job_listing(request):
 
 
 def job_details(request , id):
+    job_applied = ApplyJob.objects.filter(user = request.user , job=id)
+    if job_applied.exists():
+        is_applied = True
+    else:
+        is_applied= False
     job = Work.objects.get(id=id)
     context = {
-        'job': job
+        'job': job,
+        'is_applied':is_applied
     }
     return render(request, 'work/job_details.html', context)

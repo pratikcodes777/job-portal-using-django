@@ -25,6 +25,8 @@
 <div class="alert alert-danger" role="alert">
    <b>You need to create company to post jobs. <a href="{% url 'update-company' %}">Create one Now.</a> </b> 
   </div>
+{% else %}
+<h2 style="display: flex; justify-content: center;">Recruiter of company: {{ request.user.company }}</h2>
 {% endif %}
 <section>
     <div class="p-5 mb-4 bg-light rounded-3">

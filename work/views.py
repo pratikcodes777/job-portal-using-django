@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import CreateJobForm, UpdateJobForm
 from users.models import CustomUser
-from work.models import Work
+from work.models import Work, ApplyJob
 
 
 def create_job(request):
@@ -34,7 +34,7 @@ def update_job(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request , 'Job Info updated Successfully.')
-            return redirect('dashboard')
+            return redirect('manage-jobs')
         else:
             messages.warning(request , 'Something went wrong.')
             return redirect('dashboard')
@@ -44,3 +44,33 @@ def update_job(request, pk):
             'form': form
         }
         return render(request , 'work/update_job.html' , context)
+    
+
+def manage_jobs(request):
+    jobs = Work.objects.filter(user = request.user , company = request.user.company)
+    context = {
+        'jobs': jobs
+    }
+    return render(request, 'work/manage_jobs.html' , context) 
+
+
+def apply_to_jobs(request, pk):
+    job_to_apply = Work.objects.get(pk=pk)
+    ApplyJob.objects.create(
+        job = job_to_apply,
+        user = request.user,
+        status = 'Pending'
+    )
+    messages.info(request , 'Job applied successfully. Please see the dashboard.')
+    return redirect('dashboard')
+
+
+def all_applicants(request, pk):
+    job = Work.objects.get(pk=pk)
+    applicants = job.applyjob_set.all()
+    context = {
+        'job': job,
+        'applicants': applicants
+    }
+    return render(request , 'work/all_applicants.html' , context)
+

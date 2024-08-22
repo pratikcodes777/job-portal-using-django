@@ -12,6 +12,14 @@
                 <p class="col-md-8 fs-5 mt-3">
                     {{job.location}} | Remote | Rs. {{job.salary|intcomma}}
                 </p>
+                {% if request.user.is_applicant %}
+                    {% if not is_applied %}
+                        <a class="btn btn-info" href="{% url 'apply-to-jobs' job.pk %}">Apply</a>
+                    {% else %}
+                        <button class="btn btn-secondary" disabled>Already Applied</button>
+                    {% endif %}
+                {% endif %}
+         
             </div>
         </div>
     </section>

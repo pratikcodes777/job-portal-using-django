@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+{% include 'navbar.html' %}
+{% include 'messages.html' %}
+
+<section>
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div container-fluid py-5>
+            <h2 class="display-5 fw-bold">Welcome to Job Site</h1>
+            <p class="col-md-8 fs-5 mt-3">My Job Posting</p>
+        </div>
+    </div>
+</section>
+
+<div class="container-sm">
+<div class="card-body">
+  <h4 class="card-title mb-3" >Manage Jobs</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Job Title</th>
+        <th scope="col">Location</th>
+        <th scope="col">Salary(In Rs.)</th>
+        <th scope="col">No of applicants</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for job in jobs %}
+      <tr>
+        <td>{{job.title}}</td>
+        <td>{{job.location}}</td>
+        <td>{{job.salary}}</td>
+        <td>{{job.applyjob_set.all.count}}
+          <a class="badge rounded-pill text-bg-info" href="{% url 'all-applicants' job.id %}">View all</a>
+        </td>
+        {% if job.is_available %}
+        <td><span class="badge bg-success" >Active</span></td>
+        {% else %}
+        <td><span class="badge bg-danger" > NotActive</span></td>
+        {% endif %}
+        <td><a class="btn btn-outline-primary" href="{% url 'update-job' job.id %}"> <small>Update</small> </a></td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+
+<hr>
+<h1 style="display: flex; justify-content: center;">JOBS YOU POSTED</h1>
+
+
+<div class="container-sm">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for job in jobs %}
+        <div class="col">
+          <div class="card {% if job.is_available %} {% else %} border-danger {% endif %} h-100">
+            <div class="card-body {% if job.is_available %} {% else %} text-danger {% endif %}">
+              <h5 class="card-title">{{ job.title }}</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">Rs. {{ job.salary|intcomma }}</p>
+              <p class="card-text">Posted by: {{ job.company }}</p>
+              <a class="btn btn-primary btn-sm" href="{% url 'job-details' job.id %}">View Details</a>
+              <a class="btn btn-info btn-sm" href="{% url 'update-job' job.id %}">Update Job</a>
+
+
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Created {{ job.timestamp|naturaltime }}</small>
+            </div>
+          </div>
+        </div>
+          {% endfor %}
+    </div>
+    
+</div>
+
+<br>
+
+{% endblock content %}

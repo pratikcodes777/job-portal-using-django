@@ -20,10 +20,10 @@
             <a class="nav-link" href="{% url 'login' %}">Login</a>
           </li>
           {% else %}
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="btn btn-outline-danger" href="{% url 'logout' %}">Logout</a>
           </li>
-         
+          -->
             <li class="nav-item">
               <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
             </li>
@@ -33,6 +33,9 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'create-job' %}">Create Jobs</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'manage-jobs' %}">Manage Jobs</a>
+            </li>
             {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'update-company' %}">Create Company</a>
@@ -41,12 +44,12 @@
           {% endif %}
 
             {% if request.user.is_applicant %}
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a class="nav-link" href="{% url 'job-listing' %}">Job Listing</a>
-                </li>
+                </li> -->
                 {% if request.user.has_resume %}
                 <li class="nav-item">
-                  <a class="nav-link" href="">Apply to Jobs</a>
+                  <a class="nav-link" href="{% url 'job-listing' %}">Apply to Jobs</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
@@ -54,11 +57,14 @@
                 </li>
                 {% endif %}
             {% endif %}
-            
-
-
+          
 
         </ul>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="btn btn-outline-danger" href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% endif %}
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
