@@ -9,7 +9,7 @@ def update_resume(request):
     if request.user.is_applicant:
         resume = Resume.objects.get(user = request.user)
         if request.method == 'POST':
-            form = UpdateResume(request.POST , instance=resume)
+            form = UpdateResume(request.POST ,request.FILES,  instance=resume)
             if form.is_valid:
                 var  = form.save(commit=False)
                 user = CustomUser.objects.get(id = request.user.id)

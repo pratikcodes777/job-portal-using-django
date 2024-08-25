@@ -41,6 +41,9 @@
               <a class="nav-link" href="{% url 'update-company' %}">Create Company</a>
             </li>
             {% endif %}
+            <li class="nav-item">
+              <b><button class="nav-link" disabled style="color: aqua;">{{request.user.email }}</button></b>
+            </li>
           {% endif %}
 
             {% if request.user.is_applicant %}
@@ -51,11 +54,20 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'job-listing' %}">Apply to Jobs</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'applied-jobs' %}">Applied Jobs</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'update-resume' %}">Update Resume</a>
+                </li>
                 {% else %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'update-resume' %}">Create Resume</a>
                 </li>
                 {% endif %}
+                <li class="nav-item">
+                 <b><button class="nav-link" disabled style="color: aqua;">Current User: {{request.user.email }}</button></b> 
+            </li>
             {% endif %}
           
 

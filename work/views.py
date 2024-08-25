@@ -74,3 +74,11 @@ def all_applicants(request, pk):
     }
     return render(request , 'work/all_applicants.html' , context)
 
+
+def applied_jobs(request):
+    jobs = ApplyJob.objects.filter(user = request.user)
+    context = {
+        'jobs': jobs
+    }
+    return render(request , 'work/applied_jobs.html' , context)
+

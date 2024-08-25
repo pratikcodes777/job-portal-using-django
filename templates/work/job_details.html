@@ -10,7 +10,7 @@
             <div container-fluid py-5>
                 <h2 class="display-5 fw-bold">{{ job.title }}</h1>
                 <p class="col-md-8 fs-5 mt-3">
-                    {{job.location}} | Remote | Rs. {{job.salary|intcomma}}
+                    {{job.city}},{{job.province}} | {{job.job_type}} | Rs. {{job.salary|intcomma}}
                 </p>
                 {% if request.user.is_applicant %}
                     {% if not is_applied %}

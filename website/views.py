@@ -1,9 +1,14 @@
 from django.shortcuts import render
 from work.models import Work, ApplyJob
+from .filter import JobFilter
 
 # Create your views here.
 def home(request):
-    return render(request , 'index.html')
+    filter = JobFilter(request.GET , queryset = Work.objects.filter(is_available = True).order_by('-timestamp'))
+    context = {
+        'filter':filter
+    }
+    return render(request , 'index.html' , context)
 
 
 def job_listing(request):

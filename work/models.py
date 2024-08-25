@@ -3,16 +3,38 @@ from users.models import CustomUser
 from company.models import Company
 # Create your models here.
 
+class Province(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+    
+
+class Industry(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name 
+
+
 class Work(models.Model):
+    job_type_choice = {
+        ('Remote' , 'Remote'),
+        ('Onsite' , 'Onsite'),
+        ('Hybrid' , 'Hybrid'),
+    }
     user = models.ForeignKey(CustomUser , on_delete=models.CASCADE)
     company = models.ForeignKey(Company , on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    location = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
     salary = models.PositiveIntegerField()
     requirements = models.TextField()
     ideal_candidate = models.TextField()
     is_available = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+    industry = models.ForeignKey(Industry , on_delete=models.DO_NOTHING , null=True , blank=True)
+    province = models.ForeignKey(Province , on_delete=models.DO_NOTHING , blank=True , null=True)
+    job_type = models.CharField(max_length=50 , choices=job_type_choice , null=True , blank=True)
 
     def __str__(self):
         return self.title
