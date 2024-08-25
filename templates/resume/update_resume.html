@@ -5,6 +5,8 @@
 {% include 'navbar.html' %}
 <div class="container-sm">
     {% include 'messages.html' %}
+  <h2 style="display: flex; justify-content: center;">My Resume</h2>
+
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="mb-3">
@@ -22,6 +24,15 @@
     <div class="mb-3">
         <label class="form-label">Job Title</label>
         {% render_field form.job_title class="form-control" %}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Skills</label>
+        {% render_field form.skills|attr:"rows:2" class="form-control" %}
+        
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Experience</label>
+        {% render_field form.experience_level class="form-control" %}
     </div>
     <div class="mb-3">
         <label class="form-label">Upload Resume</label>

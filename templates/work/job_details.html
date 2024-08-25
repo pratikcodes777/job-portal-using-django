@@ -16,7 +16,9 @@
                     {% if not is_applied %}
                         <a class="btn btn-info" href="{% url 'apply-to-jobs' job.pk %}">Apply</a>
                     {% else %}
-                        <button class="btn btn-secondary" disabled>Already Applied</button>
+                        <a class="btn btn-danger" href="{% url 'cancel-applied-jobs' applied_job_pk %}">Cancel</a>
+<!-- 
+                        <button class="btn btn-secondary" disabled>Already Applied</button> -->
                     {% endif %}
                 {% endif %}
          

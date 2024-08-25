@@ -3,7 +3,7 @@
 
 {% block content %}
 {% include 'navbar.html' %}
-
+{% include 'messages.html' %}
 <section>
     <div class="p-5 mb-4 bg-light rounded-3">
         <div container-fluid py-5>
@@ -24,6 +24,7 @@
         <th scope="col">Salary</th>
         <th scope="col">Job Type</th>
         <th scope="col">Industry</th>
+        <th scope="col">Status</th>
         <th scope="col">Action</th>
       </tr>
     </thead>
@@ -35,6 +36,15 @@
         <td>{{job.job.salary}}</td>
         <td>{{job.job.job_type}}</td>
         <td>{{job.job.industry}}</td>
+        <td>
+          {% if job.status == 'Accepted' %}
+            <span class="badge bg-success">Accepted</span>
+          {% elif job.status == 'Rejected' %}
+            <span class="badge bg-danger">Rejected</span>
+          {% else %}
+            <span class="badge bg-warning">Pending</span>
+          {% endif %}
+        </td>
         <td><a class="btn btn-outline-primary" href="{% url 'job-details' job.job.id %}"> <small>View Job</small> </a></td>
 
       </tr>

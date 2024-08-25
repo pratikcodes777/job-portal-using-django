@@ -37,6 +37,10 @@
         {% render_field form.requirements|attr:"rows:2" class="form-control" %}
     </div>
     <div class="mb-3">
+        <label class="form-label">Required Skills</label>
+        {% render_field form.required_skills|attr:"rows:2" class="form-control" %}
+    </div>
+    <div class="mb-3">
         <label class="form-label">Ideal candidate</label>
         {% render_field form.ideal_candidate|attr:"rows:2" class="form-control" %}
     </div>

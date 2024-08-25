@@ -30,6 +30,7 @@ class Work(models.Model):
     salary = models.PositiveIntegerField()
     requirements = models.TextField()
     ideal_candidate = models.TextField()
+    required_skills = models.TextField(null=True, blank=True) 
     is_available = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     industry = models.ForeignKey(Industry , on_delete=models.DO_NOTHING , null=True , blank=True)
@@ -41,11 +42,11 @@ class Work(models.Model):
     
 
 class ApplyJob(models.Model):
-    status_choices = {
-        ('Accepted' , 'Accepted'),
-        ('Declined' , 'Declined'),
-        ('Pending' , 'Pending')
-    }
+    status_choices = [
+        ('Accepted', 'Accepted'),
+        ('Declined', 'Declined'),
+        ('Pending', 'Pending'),
+    ]
     user = models.ForeignKey(CustomUser , on_delete=models.CASCADE)
     job = models.ForeignKey(Work , on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
